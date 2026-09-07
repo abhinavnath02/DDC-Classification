@@ -1,0 +1,15 @@
+{
+  "extracted_unique_work_ids": 5393,
+  "release_books": 5034,
+  "quarantined_work_ids": 344,
+  "work_ids_consolidated": 15,
+  "reviewed_title_rows": 88,
+  "edition_families_consolidated": 14,
+  "L1_corrections": 1,
+  "with_subjects": 1983,
+  "with_first_sentence": 110,
+  "with_subtitle": 141,
+  "title_only": 3024,
+  "text_fields_enriched_from_editions": 113,
+  "scope": "Ten-class metadata ETL release. Labels are source-derived except documented L1 overrides. No ML training or OCR evaluation."
+}

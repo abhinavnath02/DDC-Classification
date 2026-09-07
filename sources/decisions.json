@@ -1,0 +1,81 @@
+{
+  "edition_families": [
+    [
+      "OL17618370W",
+      "OL44556550W"
+    ],
+    [
+      "OL42393248W",
+      "OL42422593W",
+      "OL42428179W"
+    ],
+    [
+      "OL42393358W",
+      "OL42422646W"
+    ],
+    [
+      "OL42398580W",
+      "OL42428329W"
+    ],
+    [
+      "OL42401118W",
+      "OL42405205W"
+    ],
+    [
+      "OL42402863W",
+      "OL42425799W"
+    ],
+    [
+      "OL42402870W",
+      "OL42425805W"
+    ],
+    [
+      "OL42402917W",
+      "OL42427243W"
+    ],
+    [
+      "OL42406613W",
+      "OL42429273W"
+    ],
+    [
+      "OL42406970W",
+      "OL42425815W"
+    ],
+    [
+      "OL42540112W",
+      "OL42546384W"
+    ],
+    [
+      "OL42547628W",
+      "OL45911232W"
+    ],
+    [
+      "OL44553832W",
+      "OL44553835W"
+    ],
+    [
+      "OL44561161W",
+      "OL45148113W"
+    ]
+  ],
+  "related_keep_separate": [
+    [
+      "OL42406878W",
+      "OL42560078W"
+    ]
+  ],
+  "quarantine": {
+    "OL44560859W": "Sample review could not resolve reading culture versus literary study.",
+    "OL45910310W": "Sample review had insufficient evidence supporting the source classification.",
+    "OL42539495W": "Dinosaur fossil subject versus source main class 900 is questionable; no replacement label assumed."
+  },
+  "main_class_corrections": {
+    "OL13386549W": {
+      "label": "800",
+      "previous_label": "900",
+      "evidence": "https://the-song-cave.com/products/nebraska",
+      "reason": "Publisher explicitly identifies George Whitmore’s Nebraska as a novel. Only L1 corrected; original detailed DDC preserved."
+    }
+  },
+  "policy": "Same title alone never causes a merge. Edition families were reviewed using authors, subtitles, publishers and edition records. Related revised editions may be consolidated into one training example; aliases and editions remain traceable."
+}

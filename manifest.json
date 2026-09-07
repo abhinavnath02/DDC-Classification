@@ -1,0 +1,17 @@
+{
+  "data/books.csv": "4f70860d2c308eb6beed30d6eacf0241f1b856635767452c5b48ad777d65bdd2",
+  "data/books.jsonl": "56706f35e2db101d912edbefabcbc495442d8e18ecb33b29ecef101a232d0673",
+  "audit/class_coverage.csv": "55af2e9c13b77b77c777dc54b9323a9abd62a15d28df36dc1c3d886c4c649d2d",
+  "audit/duplicate_decisions.csv": "afc685369c6e5c45cfb9d3fa5720b6dc9659f26f7c724c6c9334d0562f9b153d",
+  "audit/edition_aliases.csv": "e11e0b4b3f02a762069ac2d5b1c808156925e33858b3e6eca131070772c7e5b1",
+  "audit/quality_report.json": "5a1123e381528a3b10255f0a0bfef6a51618290dc49eee22c60e620740115cbf",
+  "audit/quarantine.csv": "5bc91adb13fdf387078438312276265d9b5ee8b02ec278571b9447cb56891681",
+  "audit/text_enrichment.csv": "4fefb80214f6323c91620f7aa9aab0d0618526dcadaa08adb873802def11fa18",
+  "sources/api_snapshots.jsonl": "227954c533d633b761519aa3ceefde6e4239a6d17e3addf807b0d9abdea46534",
+  "sources/decisions.json": "5c2643ab0b017c1b35b6c1e0772ce26c084d49fb4a9c28e0d7f904400dbe3655",
+  "sources/edition_evidence.json": "dc00a7af94b5146baefbb068a6dcf7e2816f7076175dba66769778c3b22b81c1",
+  "sources/extracted_metadata.jsonl": "0a4e6d9a6f58b0f4720eaa6bd321e7aae40e9072cef0af49892909d32d2ce464",
+  "sources/prior_splits.json": "62e4d80458f2d567172316a779693455780987c0e2a927a03688960ba76cfdda",
+  "sources/sample_review.csv": "017fbde0d56a4a5f60212a49cd7b8902b83fbb22f136a25d8d66b38009b6d9fd",
+  "sources/title_candidates.csv": "2496bc2f71929ec26fbc888887b3d191226d3b1bc6063632f33913ab0045daee"
+}

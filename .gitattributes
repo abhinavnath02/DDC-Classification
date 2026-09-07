@@ -1,0 +1,8 @@
+# Preserve snapshot bytes so manifest checksums survive every checkout.
+data/** -text -whitespace
+audit/** -text -whitespace
+sources/** -text -whitespace
+# Keep executable source and documentation portable.
+*.py text eol=lf
+*.md text eol=lf
+*.ipynb text eol=lf
