@@ -4,12 +4,12 @@ import hashlib
 import json
 from collections import defaultdict
 from pathlib import Path
-from load_data import load_data
+from .load_data import load_data
 
-ROOT=Path(__file__).resolve().parent
+ROOT=Path(__file__).resolve().parents[2]
 
 def main():
-    for relative,digest in json.loads((ROOT/'manifest.json').read_text()).items():
+    for relative,digest in json.loads((ROOT/'audit/manifest.json').read_text()).items():
         assert hashlib.sha256((ROOT/relative).read_bytes()).hexdigest()==digest,relative
     loaded=load_data();rows=loaded['records']
     assert rows and len(rows)==len({r['document_id'] for r in rows})

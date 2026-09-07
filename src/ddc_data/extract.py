@@ -5,7 +5,7 @@ import re
 from collections import defaultdict
 from pathlib import Path
 
-ROOT=Path(__file__).resolve().parent
+ROOT=Path(__file__).resolve().parents[2]
 SRC=ROOT/'sources'
 
 def text(value):

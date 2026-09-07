@@ -1,6 +1,6 @@
 """Rebuild clean data and audit from the frozen extraction snapshot, using Python 3.9+.
 
-Run: python etl.py
+Run from repository root: python3 -m src.ddc_data.etl
 This script does not train a model or contact a network service.
 """
 import csv
@@ -11,7 +11,7 @@ import unicodedata
 from collections import Counter, defaultdict
 from pathlib import Path
 
-ROOT=Path(__file__).resolve().parent
+ROOT=Path(__file__).resolve().parents[2]
 SRC=ROOT/'sources'
 DATA=ROOT/'data'
 AUDIT=ROOT/'audit'
@@ -193,8 +193,8 @@ def main():
             'scope':'Ten-class metadata ETL release. Labels are source-derived except documented L1 overrides. No ML training or OCR evaluation.'}
     assert len(source)==len(records)+len(quarantine)+counts['work_ids_consolidated']
     (AUDIT/'quality_report.json').write_text(json.dumps(counts,indent=2)+'\n')
-    manifest={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for folder in [DATA,AUDIT,SRC] for p in sorted(folder.glob('*')) if p.is_file()}
-    (ROOT/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+    manifest={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for folder in [DATA,AUDIT,SRC] for p in sorted(folder.glob('*')) if p.is_file() and p.name != "manifest.json"}
+    (ROOT/'audit/manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
     print(json.dumps(counts,indent=2))
 
 if __name__=='__main__':main()

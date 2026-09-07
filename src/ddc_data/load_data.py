@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 
 def load_data(path=None):
-    path=Path(path) if path else Path(__file__).resolve().parent/'data/books.jsonl'
+    path=Path(path) if path else Path(__file__).resolve().parents[2]/'data/books.jsonl'
     records=[json.loads(line) for line in path.read_text(encoding='utf-8').splitlines()]
     return {
         'X':[r['raw_text'] for r in records],
