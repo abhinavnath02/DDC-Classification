@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DDC Book Classifier — Dewey Decimal Classification</title>
+    <meta name="description" content="Upload book cover images to automatically classify them using the Dewey Decimal Classification system. Powered by AI ensemble of Gemini Vision and TF-IDF models.">
+    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-mesh"></div>
+    <div class="background-overlay"></div>
+    
+    <!-- Animated floating book spines -->
+    <div class="floating-books" aria-hidden="true">
+        <div class="floating-book"></div>
+        <div class="floating-book"></div>
+        <div class="floating-book"></div>
+        <div class="floating-book"></div>
+        <div class="floating-book"></div>
+        <div class="floating-book"></div>
+        <div class="floating-book"></div>
+        <div class="floating-book"></div>
+        <div class="floating-book"></div>
+        <div class="floating-book"></div>
+    </div>
+    
+    <main class="container">
+        <header>
+            <h1>DDC Book Classifier</h1>
+            <p>Upload or capture book pages to classify them using the Dewey Decimal system</p>
+        </header>
+
+        <form id="upload-form" class="upload-grid">
+            
+            <!-- Front Page Section -->
+            <div class="card page-section" id="section-front">
+                <h2>Front Page / Cover <small style="font-size:0.7em; color:var(--text-muted); font-weight:400; font-family:Inter,sans-serif;">(Required)</small></h2>
+                <div class="tabs">
+                    <button type="button" class="tab-btn active" data-target="upload-front">Upload File</button>
+                    <button type="button" class="tab-btn" data-target="camera-front">Live Camera</button>
+                </div>
+                
+                <div class="tab-content active" id="upload-front">
+                    <div class="drop-zone" id="drop-front">
+                        <p>Drag & Drop or Click to Browse</p>
+                        <input type="file" id="file-front" accept="image/*" hidden>
+                        <img class="preview-img" hidden alt="Front page preview">
+                    </div>
+                </div>
+
+                <div class="tab-content" id="camera-front" hidden>
+                    <div class="camera-container">
+                        <video id="video-front" autoplay playsinline hidden></video>
+                        <canvas id="canvas-front" hidden></canvas>
+                        <button type="button" class="btn btn-secondary start-camera-btn" data-target="front">Start Camera</button>
+                        <button type="button" class="btn capture-btn" data-target="front" hidden>Capture Photo</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Page Section -->
+            <div class="card page-section" id="section-summary">
+                <h2>Summary Page <small style="font-size:0.7em; color:var(--text-muted); font-weight:400; font-family:Inter,sans-serif;">(Optional)</small></h2>
+                <div class="tabs">
+                    <button type="button" class="tab-btn active" data-target="upload-summary">Upload File</button>
+                    <button type="button" class="tab-btn" data-target="camera-summary">Live Camera</button>
+                </div>
+                
+                <div class="tab-content active" id="upload-summary">
+                    <div class="drop-zone" id="drop-summary">
+                        <p>Drag & Drop or Click to Browse</p>
+                        <input type="file" id="file-summary" accept="image/*" hidden>
+                        <img class="preview-img" hidden alt="Summary page preview">
+                    </div>
+                </div>
+
+                <div class="tab-content" id="camera-summary" hidden>
+                    <div class="camera-container">
+                        <video id="video-summary" autoplay playsinline hidden></video>
+                        <canvas id="canvas-summary" hidden></canvas>
+                        <button type="button" class="btn btn-secondary start-camera-btn" data-target="summary">Start Camera</button>
+                        <button type="button" class="btn capture-btn" data-target="summary" hidden>Capture Photo</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Index Page Section -->
+            <div class="card page-section" id="section-index">
+                <h2>Index Page <small style="font-size:0.7em; color:var(--text-muted); font-weight:400; font-family:Inter,sans-serif;">(Optional)</small></h2>
+                <div class="tabs">
+                    <button type="button" class="tab-btn active" data-target="upload-index">Upload File</button>
+                    <button type="button" class="tab-btn" data-target="camera-index">Live Camera</button>
+                </div>
+                
+                <div class="tab-content active" id="upload-index">
+                    <div class="drop-zone" id="drop-index">
+                        <p>Drag & Drop or Click to Browse</p>
+                        <input type="file" id="file-index" accept="image/*" hidden>
+                        <img class="preview-img" hidden alt="Index page preview">
+                    </div>
+                </div>
+
+                <div class="tab-content" id="camera-index" hidden>
+                    <div class="camera-container">
+                        <video id="video-index" autoplay playsinline hidden></video>
+                        <canvas id="canvas-index" hidden></canvas>
+                        <button type="button" class="btn btn-secondary start-camera-btn" data-target="index">Start Camera</button>
+                        <button type="button" class="btn capture-btn" data-target="index" hidden>Capture Photo</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="submit-section">
+                <button type="submit" id="generate-btn" class="btn btn-primary btn-large">Classify This Book</button>
+            </div>
+        </form>
+
+        <!-- Results Pane -->
+        <div id="results-pane" class="card" hidden>
+            <h2>Classification Result</h2>
+            <div class="result-grid">
+                <div class="result-box highlight">
+                    <h3>Predicted Class</h3>
+                    <p id="res-class" class="big-value">--</p>
+                    <p id="res-class-name" class="class-name">--</p>
+                </div>
+                <div class="result-box">
+                    <h3>Confidence</h3>
+                    <p id="res-conf" class="big-value conf-value">--</p>
+                </div>
+                <div class="result-box">
+                    <h3>Routing Outcome</h3>
+                    <p id="res-routing" class="routing-badge">--</p>
+                </div>
+            </div>
+            
+            <div class="result-details">
+                <h3>Extracted Fields <span class="engine-badge" id="res-engine"></span> <span class="ensemble-badge" id="res-ensemble"></span></h3>
+                <p><strong>Title:</strong> <span id="res-title">--</span></p>
+                <p><strong>Subtitle:</strong> <span id="res-subtitle">--</span></p>
+                <p><strong>Author:</strong> <span id="res-author">--</span></p>
+                <p><strong>Description:</strong> <span id="res-description">--</span></p>
+                
+                <h3>Class Probabilities — Book Shelf</h3>
+                <div id="prob-chart" class="prob-chart"></div>
+
+                <h3>Assembled Raw Text</h3>
+                <pre id="res-raw">--</pre>
+            </div>
+        </div>
+        
+        <!-- Loading overlay -->
+        <div id="loader" class="loader-overlay" hidden>
+            <div class="book-loader">
+                <div class="book-cover"></div>
+                <div class="book-page"></div>
+                <div class="book-page"></div>
+                <div class="book-page"></div>
+            </div>
+            <p>Reading your book...</p>
+            <span class="loader-subtext">Analyzing with Gemini Vision + TF-IDF ensemble</span>
+        </div>
+
+        <footer class="footer">
+            <p>DDC Book Classifier — Dewey Decimal Classification Pipeline</p>
+        </footer>
+    </main>
+
+    <script src="app.js?v=2"></script>
+</body>
+</html>

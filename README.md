@@ -1,5 +1,7 @@
 # DDC Classification — data preparation and ML handoff
 
+> **Looking for instructions to run the web app and classification pipeline? Read the [Run Guide](RUN_GUIDE.md).**
+
 **Start with [data/books.jsonl](data/books.jsonl) or [data/books.csv](data/books.csv). The ETL work is complete for this collected snapshot.**
 
 The release contains **5,034 examples for ten broad DDC classes**. It includes prepared input text, string labels, source evidence, duplicate decisions and a loader. No model has been trained as part of this release.

@@ -14,3 +14,15 @@ backups/
 *.pkl
 *.log
 .pytest_cache/
+# Trained model artifacts (serialized outside git)
+models/
+# OCR pipeline working directories
+data/ocr_inbox/
+data/ocr_processed/
+data/ocr_archive/
+data/ocr_review_queue/
+# Secrets and credentials
+*.secret
+.secrets.baseline
+*.key
+*.pem

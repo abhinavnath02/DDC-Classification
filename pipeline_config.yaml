@@ -1,0 +1,73 @@
+# ── OCR Pipeline Configuration ──────────────────────────────────────────
+# Model: Calibrated FeatureUnion(word_tfidf + char_tfidf) + LogReg
+# Probabilities are calibrated via CalibratedClassifierCV (isotonic).
+# All thresholds and paths in one location. No magic numbers in code.
+# Changing a value here should have a visible effect on routing outcomes.
+
+ocr:
+  engine: tesseract
+  tesseract_cmd: "C:\\Program Files\\Tesseract-OCR\\tesseract.exe"
+  tesseract_config: "--oem 3 --psm 3"  # PSM 3 is fully automatic page segmentation, best for scattered text
+  min_word_confidence: 40          # Individual word below this is flagged low-quality
+  min_mean_confidence: 60          # Mean across all words; below ocr_reject_threshold → reject
+  osd_min_script_confidence: 5.0   # Tesseract OSD confidence must be > this to reject non-Latin scripts
+
+preprocessing:
+  deskew_enabled: true
+  contrast_normalize: false
+  crop_to_text: false
+
+routing:
+  classification_auto_accept_threshold: 0.85   # classification confidence >= this AND OCR OK → auto_accept
+  classification_needs_review_threshold: 0.50  # between this and auto_accept → needs_review
+  ocr_reject_threshold: 40                     # mean OCR confidence below this → reject_retake
+
+paths:
+  model_artifact: models/baseline_classifier.joblib
+  image_inbox: data/ocr_inbox/
+  processed_output: data/ocr_processed/
+  review_queue: data/ocr_review_queue/
+  archive: data/ocr_archive/
+
+supported_formats:
+  - ".jpg"
+  - ".jpeg"
+  - ".png"
+  - ".heic"
+  - ".tiff"
+  - ".tif"
+
+# From README §183 — automated leakage guard.
+# These fields must NEVER reach the model at inference or training time.
+forbidden_model_features:
+  - ddc_raw
+  - label_name
+  - label_override
+  - label_level_1
+  - review_status
+  - document_id
+  - source_work_ids
+  - split_group_id
+  - previous_split_memberships
+  - prior_holdout_status
+  - source_urls
+  - retrieved_at
+  - edition_ids
+  - isbns
+  - first_sentence_sources
+  - description_source_url
+  - text_enrichment_sources
+  - deduplication_status
+
+# Ten broad DDC classes — the only valid prediction targets.
+valid_labels:
+  - "000"
+  - "100"
+  - "200"
+  - "300"
+  - "400"
+  - "500"
+  - "600"
+  - "700"
+  - "800"
+  - "900"
